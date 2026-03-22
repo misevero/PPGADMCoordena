@@ -6,311 +6,312 @@
   <title>Painel de Indicadores — PPGADM/UFG</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #f5f5f3;
-      color: #1a1a18;
-      padding: 2rem 1rem;
+      background: #f5f5f3; color: #1a1a18; padding: 0 0 3rem 0;
     }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
+    .topo {
+      background: #ffffff; border-bottom: 0.5px solid rgba(0,0,0,0.12);
+      padding: 1.25rem 2rem; margin-bottom: 2rem;
     }
-
-    .titulo-painel {
-      font-size: 22px;
-      font-weight: 500;
-      color: #1a1a18;
-      margin-bottom: 0.25rem;
-    }
-
-    .subtitulo-painel {
-      font-size: 13px;
-      color: #5f5e5a;
-      margin-bottom: 2rem;
-    }
-
+    .topo-dev { font-size: 13px; font-weight: 500; color: #1a1a18; margin-bottom: 4px; }
+    .topo-titulo { font-size: 22px; font-weight: 500; color: #1a1a18; margin-bottom: 2px; }
+    .topo-sub { font-size: 13px; color: #5f5e5a; }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1rem; }
+    .quesito-secao { margin-bottom: 2rem; }
+    .quesito-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+    .quesito-pill { font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 999px; }
+    .quesito-label { font-size: 15px; font-weight: 500; color: #1a1a18; }
+    .q1 { background: #e6eef7; color: #0c447c; }
+    .q2 { background: #e4f0e8; color: #1a5c30; }
+    .q3 { background: #faeeda; color: #633806; }
     .card {
-      background: #ffffff;
-      border: 0.5px solid rgba(0,0,0,0.15);
-      border-radius: 12px;
-      padding: 1.25rem;
-      margin-bottom: 1rem;
+      background: #ffffff; border: 0.5px solid rgba(0,0,0,0.13);
+      border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem;
     }
-
     .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 1rem;
-      gap: 12px;
-      flex-wrap: wrap;
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 1rem;
     }
-
-    .card-header-titulo {
-      font-size: 13px;
-      font-weight: 500;
-      color: #1a1a18;
-    }
-
+    .card-header-titulo { font-size: 13px; font-weight: 500; color: #1a1a18; }
     .card-badge {
-      font-size: 11px;
-      font-weight: 500;
-      color: #888780;
-      background: #f1efe8;
-      border-radius: 8px;
-      padding: 3px 8px;
-      white-space: nowrap;
+      font-size: 11px; font-weight: 500; color: #888780;
+      background: #f1efe8; border-radius: 8px; padding: 3px 8px; white-space: nowrap;
     }
-
-    .card-titulo {
-      font-size: 13px;
-      color: #5f5e5a;
-      margin-bottom: 1rem;
-      line-height: 1.6;
-    }
-
+    .card-titulo { font-size: 13px; color: #5f5e5a; margin-bottom: 1rem; line-height: 1.6; }
     .obs-box {
-      background: #f1efe8;
-      border-radius: 8px;
-      padding: 8px 12px;
-      margin-bottom: 1rem;
-      font-size: 12px;
-      color: #5f5e5a;
-      line-height: 1.5;
+      background: #f1efe8; border-radius: 8px; padding: 8px 12px;
+      margin-bottom: 1rem; font-size: 12px; color: #5f5e5a; line-height: 1.5;
     }
-
-    .campos {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    @media (max-width: 500px) {
-      .campos { grid-template-columns: 1fr; }
+    .campos   { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .campos-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+    @media (max-width: 600px) {
+      .campos, .campos-3 { grid-template-columns: 1fr; }
       .card-header { flex-direction: column; }
     }
-
-    .campo label {
-      display: block;
-      font-size: 13px;
-      color: #5f5e5a;
-      margin-bottom: 6px;
-    }
-
+    .campo label { display: block; font-size: 13px; color: #5f5e5a; margin-bottom: 6px; }
     .campo input {
-      width: 100%;
-      height: 36px;
-      padding: 0 10px;
-      border: 0.5px solid rgba(0,0,0,0.3);
-      border-radius: 8px;
-      font-size: 14px;
-      color: #1a1a18;
-      background: #ffffff;
-      outline: none;
-      transition: border-color 0.2s;
+      width: 100%; height: 36px; padding: 0 10px;
+      border: 0.5px solid rgba(0,0,0,0.3); border-radius: 8px;
+      font-size: 14px; color: #1a1a18; background: #ffffff;
+      outline: none; transition: border-color 0.2s;
     }
-
     .campo input:focus {
-      border-color: rgba(0,0,0,0.5);
-      box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+      border-color: rgba(0,0,0,0.5); box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
     }
-
     .resultado {
-      margin-top: 1.25rem;
-      border-top: 0.5px solid rgba(0,0,0,0.12);
-      padding-top: 1.25rem;
+      margin-top: 1.25rem; border-top: 0.5px solid rgba(0,0,0,0.12); padding-top: 1.25rem;
     }
-
-    .metricas {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 1.25rem;
+    .metricas-4 { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-bottom: 1.25rem; }
+    .metricas   { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-bottom: 1.25rem; }
+    @media (max-width: 600px) {
+      .metricas-4 { grid-template-columns: repeat(2, minmax(0,1fr)); }
     }
-
-    .metrica {
-      background: #f1efe8;
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
-    }
-
-    .metrica-label {
-      font-size: 12px;
-      color: #5f5e5a;
-      margin-bottom: 4px;
-    }
-
-    .metrica-valor {
-      font-size: 20px;
-      font-weight: 500;
-      color: #1a1a18;
-    }
-
+    .metrica { background: #f1efe8; border-radius: 8px; padding: 0.75rem 1rem; }
+    .metrica-label { font-size: 12px; color: #5f5e5a; margin-bottom: 4px; }
+    .metrica-valor { font-size: 20px; font-weight: 500; color: #1a1a18; }
     .conceito-titulo {
-      font-size: 12px;
-      font-weight: 500;
-      color: #5f5e5a;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      margin-bottom: 0.5rem;
+      font-size: 12px; font-weight: 500; color: #5f5e5a;
+      text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.5rem;
     }
-
-    .resultado-linha {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.75rem;
-    }
-
-    .resultado-label {
-      font-size: 13px;
-      color: #5f5e5a;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 4px 16px;
-      border-radius: 999px;
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .barra-fundo {
-      height: 10px;
-      background: #f1efe8;
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .barra-preenchimento {
-      height: 100%;
-      border-radius: 999px;
-      transition: width 0.4s ease, background 0.4s ease;
-      width: 0%;
-    }
-
-    .limiar-info {
-      font-size: 12px;
-      color: #444441;
-      margin-top: 8px;
-    }
-
-    .aposteriori-aviso {
-      font-size: 11px;
-      color: #888780;
-      margin-top: 6px;
-      font-style: italic;
-    }
+    .resultado-linha { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+    .resultado-label { font-size: 13px; color: #5f5e5a; }
+    .badge { display: inline-block; padding: 4px 16px; border-radius: 999px; font-size: 14px; font-weight: 500; }
+    .barra-fundo { height: 10px; background: #f1efe8; border-radius: 999px; overflow: hidden; }
+    .barra-preenchimento { height: 100%; border-radius: 999px; transition: width 0.4s ease, background 0.4s ease; width: 0%; }
+    .limiar-info { font-size: 12px; color: #444441; margin-top: 8px; }
+    .aposteriori-aviso { font-size: 11px; color: #888780; margin-top: 6px; font-style: italic; }
   </style>
 </head>
 <body>
+
+  <div class="topo">
+    <p class="topo-dev">Desenvolvido por Marcos Severo para o PPGADM/UFG</p>
+    <p class="topo-titulo">Painel de indicadores — PPGADM/UFG</p>
+    <p class="topo-sub">Área 27 · Administração Pública e de Empresas, Ciências Contábeis e Turismo · CAPES 2025</p>
+  </div>
+
   <div class="container">
 
-    <p class="titulo-painel">Painel de indicadores — PPGADM/UFG</p>
-    <p class="subtitulo-painel">Área 27 · Administração Pública e de Empresas, Ciências Contábeis e Turismo · CAPES 2025</p>
-
-    <!-- INDICADOR 1.1.5 -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-header-titulo">Quesito 1 — Programa · Item 1.1 · Indicador 1.1.5</span>
-        <span class="card-badge">Item 1.2 · peso 50% do Quesito 1</span>
+    <!-- ═══════════════════════
+         QUESITO 1 — PROGRAMA
+    ═══════════════════════ -->
+    <div class="quesito-secao">
+      <div class="quesito-header">
+        <span class="quesito-pill q1">Quesito 1</span>
+        <span class="quesito-label">Programa</span>
       </div>
 
-      <p class="card-titulo">
-        1.1.5. Proporção do NDP com projetos de pesquisa, inovação ou desenvolvimento tecnológico alinhados à proposta do programa, financiados por fontes públicas ou privadas de fomento ao ensino e pesquisa, externas à IES, incluindo bolsas de produtividade, em pesquisa ou de desenvolvimento tecnológico, concedidas por agência de fomento internacional, nacional ou estadual.
-      </p>
-
-      <div class="obs-box">
-        OBS: Estratificação definida a posteriori pela CAPES (com base nos dados de todos os programas da área). O conceito exibido abaixo é uma referência proporcional provisória para o PPGADM/UFG.
-      </div>
-
-      <div class="campos">
-        <div class="campo">
-          <label>Total de docentes do NDP</label>
-          <input type="number" id="ndp_total" min="0" placeholder="ex: 20" oninput="calcular115()">
+      <!-- 1.1.5 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header-titulo">Item 1.1 · Indicador 1.1.5</span>
+          <span class="card-badge">Peso: parte dos 60% dos indicadores do Item 1.2 · Item 1.2 pesa 50% do Quesito 1</span>
         </div>
-        <div class="campo">
-          <label>Docentes do NDP com projeto financiado externamente</label>
-          <input type="number" id="ndp_proj" min="0" placeholder="ex: 14" oninput="calcular115()">
+        <p class="card-titulo">
+          1.1.5. Proporção do NDP com projetos de pesquisa, inovação ou desenvolvimento tecnológico alinhados à proposta do programa, financiados por fontes públicas ou privadas de fomento ao ensino e pesquisa, externas à IES, incluindo bolsas de produtividade, em pesquisa ou de desenvolvimento tecnológico, concedidas por agência de fomento internacional, nacional ou estadual.
+        </p>
+        <div class="obs-box">
+          OBS: Estratificação definida a posteriori pela CAPES. O conceito abaixo é uma referência proporcional provisória para o PPGADM/UFG.
         </div>
-      </div>
-
-      <div class="resultado" id="resultado115" style="display:none;">
-        <div class="metricas">
-          <div class="metrica">
-            <div class="metrica-label">Total NDP</div>
-            <div class="metrica-valor" id="v-ndp">—</div>
+        <div class="campos">
+          <div class="campo">
+            <label>Total de docentes do NDP</label>
+            <input type="number" id="ndp_total" min="0" placeholder="ex: 20" oninput="calcular115()">
           </div>
-          <div class="metrica">
-            <div class="metrica-label">Com projeto financiado</div>
-            <div class="metrica-valor" id="v-proj">—</div>
-          </div>
-          <div class="metrica">
-            <div class="metrica-label">Proporção</div>
-            <div class="metrica-valor" id="v-prop">—</div>
+          <div class="campo">
+            <label>Docentes do NDP com projeto financiado externamente</label>
+            <input type="number" id="ndp_proj" min="0" placeholder="ex: 14" oninput="calcular115()">
           </div>
         </div>
-
-        <p class="conceito-titulo">Conceito CAPES para o PPGADM/UFG (referência provisória)</p>
-
-        <div class="resultado-linha">
-          <span class="resultado-label">Conceito calculado</span>
-          <span class="badge" id="badge115">—</span>
+        <div class="resultado" id="resultado115" style="display:none;">
+          <div class="metricas">
+            <div class="metrica"><div class="metrica-label">Total NDP</div><div class="metrica-valor" id="v115-ndp">—</div></div>
+            <div class="metrica"><div class="metrica-label">Com projeto financiado</div><div class="metrica-valor" id="v115-proj">—</div></div>
+            <div class="metrica"><div class="metrica-label">Proporção</div><div class="metrica-valor" id="v115-prop">—</div></div>
+          </div>
+          <p class="conceito-titulo">Conceito CAPES para o PPGADM/UFG (referência provisória)</p>
+          <div class="resultado-linha">
+            <span class="resultado-label">Conceito calculado</span>
+            <span class="badge" id="badge115">—</span>
+          </div>
+          <div class="barra-fundo"><div class="barra-preenchimento" id="barra115"></div></div>
+          <div class="limiar-info" id="limiar115"></div>
+          <p class="aposteriori-aviso">O conceito final será definido pela CAPES após comparação com todos os programas da área (estratificação a posteriori).</p>
         </div>
-
-        <div class="barra-fundo">
-          <div class="barra-preenchimento" id="barra115"></div>
-        </div>
-        <div class="limiar-info" id="limiar115"></div>
-        <p class="aposteriori-aviso">O conceito final será definido pela CAPES após comparação com todos os programas da área (estratificação a posteriori).</p>
       </div>
     </div>
 
-    <!-- ESPAÇO RESERVADO PARA PRÓXIMOS INDICADORES -->
+    <!-- ════════════════════════════════════
+         QUESITO 2 — FORMAÇÃO
+    ════════════════════════════════════ -->
+    <div class="quesito-secao">
+      <div class="quesito-header">
+        <span class="quesito-pill q2">Quesito 2</span>
+        <span class="quesito-label">Formação e Produção Intelectual</span>
+      </div>
 
+      <!-- 2.1.1 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header-titulo">Item 2.1 · Indicador 2.1.1</span>
+          <span class="card-badge">Peso: 25% do Item 2.1 · Item 2.1 pesa 20% do Quesito 2</span>
+        </div>
+        <p class="card-titulo">
+          2.1.1. Aderência temática das teses, dissertações em relação à(s) área(s) de concentração e linha(s) de pesquisa do programa. (Peso: 25%)
+        </p>
+        <div class="obs-box">
+          OBS: Registro interno do PPGADM/UFG. O conceito final é atribuído qualitativamente pelo consultor da CAPES com base na análise das teses e dissertações do quadriênio.
+        </div>
+        <div class="campos">
+          <div class="campo">
+            <label>Total de teses/dissertações no período</label>
+            <input type="number" id="td_total" min="0" placeholder="ex: 40" oninput="calcular211()">
+          </div>
+          <div class="campo">
+            <label>Quantidade considerada aderente pelo coordenador</label>
+            <input type="number" id="td_ader" min="0" placeholder="ex: 36" oninput="calcular211()">
+          </div>
+        </div>
+        <div class="resultado" id="resultado211" style="display:none;">
+          <div class="metricas">
+            <div class="metrica"><div class="metrica-label">Total teses/dissert.</div><div class="metrica-valor" id="v211-total">—</div></div>
+            <div class="metrica"><div class="metrica-label">Aderentes</div><div class="metrica-valor" id="v211-ader">—</div></div>
+            <div class="metrica"><div class="metrica-label">Proporção</div><div class="metrica-valor" id="v211-prop">—</div></div>
+          </div>
+          <p class="conceito-titulo">Conceito CAPES para o PPGADM/UFG (referência provisória)</p>
+          <div class="resultado-linha">
+            <span class="resultado-label">Conceito calculado</span>
+            <span class="badge" id="badge211">—</span>
+          </div>
+          <div class="barra-fundo"><div class="barra-preenchimento" id="barra211"></div></div>
+          <div class="limiar-info" id="limiar211"></div>
+          <p class="aposteriori-aviso">O conceito final será definido qualitativamente pelo consultor da CAPES com base na análise documental do PPGADM/UFG.</p>
+        </div>
+      </div>
+
+      <!-- 2.1.3 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header-titulo">Item 2.1 · Indicador 2.1.3</span>
+          <span class="card-badge">Peso: 25% do Item 2.1 · Item 2.1 pesa 20% do Quesito 2</span>
+        </div>
+        <p class="card-titulo">
+          2.1.3. Proporção de teses e dissertações do PPG defendidas no quadriênio que gerou produção em anais de congresso ou em periódico. (Peso: 25%)
+        </p>
+        <div class="obs-box">
+          OBS: Conta-se cada tese/dissertação que gerou ao menos uma produção em anais ou periódico. Uma mesma tese/dissertação pode ter gerado produção nos dois tipos — nesse caso é contada apenas uma vez no total combinado. Estratificação definida a posteriori pela CAPES.
+        </div>
+        <div class="campos-3">
+          <div class="campo">
+            <label>Total de teses/dissertações defendidas no período</label>
+            <input type="number" id="t213_total" min="0" placeholder="ex: 40" oninput="calcular213()">
+          </div>
+          <div class="campo">
+            <label>Teses/dissertações que geraram produção em anais</label>
+            <input type="number" id="t213_anais" min="0" placeholder="ex: 18" oninput="calcular213()">
+          </div>
+          <div class="campo">
+            <label>Teses/dissertações que geraram produção em periódicos</label>
+            <input type="number" id="t213_perio" min="0" placeholder="ex: 22" oninput="calcular213()">
+          </div>
+        </div>
+        <div class="resultado" id="resultado213" style="display:none;">
+          <div class="metricas-4">
+            <div class="metrica"><div class="metrica-label">Total teses/dissert.</div><div class="metrica-valor" id="v213-total">—</div></div>
+            <div class="metrica"><div class="metrica-label">Prod. em anais</div><div class="metrica-valor" id="v213-anais">—</div></div>
+            <div class="metrica"><div class="metrica-label">Prod. em periódicos</div><div class="metrica-valor" id="v213-perio">—</div></div>
+            <div class="metrica"><div class="metrica-label">Com produção (total)</div><div class="metrica-valor" id="v213-comb">—</div></div>
+          </div>
+          <p class="conceito-titulo">Conceito CAPES para o PPGADM/UFG (referência provisória)</p>
+          <div class="resultado-linha">
+            <span class="resultado-label">Proporção combinada · Conceito calculado</span>
+            <span class="badge" id="badge213">—</span>
+          </div>
+          <div class="barra-fundo"><div class="barra-preenchimento" id="barra213"></div></div>
+          <div class="limiar-info" id="limiar213"></div>
+          <p class="aposteriori-aviso">O conceito final será definido pela CAPES após comparação com todos os programas da área (estratificação a posteriori).</p>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <script>
+    function conceito(prop) {
+      if (prop >= 80) return { nota:'MB', bg:'#EAF3DE', tc:'#27500A', bar:'#639922' };
+      if (prop >= 60) return { nota:'B',  bg:'#FAEEDA', tc:'#633806', bar:'#EF9F27' };
+      if (prop >= 40) return { nota:'R',  bg:'#FAECE7', tc:'#4A1B0C', bar:'#D85A30' };
+      if (prop >= 20) return { nota:'F',  bg:'#FCEBEB', tc:'#501313', bar:'#E24B4A' };
+      return                 { nota:'I',  bg:'#FCEBEB', tc:'#501313', bar:'#A32D2D' };
+    }
+    function renderConceito(badgeId, barraId, prop) {
+      const c = conceito(prop);
+      const b = document.getElementById(badgeId);
+      b.textContent = c.nota; b.style.background = c.bg; b.style.color = c.tc;
+      const bar = document.getElementById(barraId);
+      bar.style.width = Math.min(prop,100).toFixed(1)+'%'; bar.style.background = c.bar;
+    }
+
+    /* ── 1.1.5 ── */
     function calcular115() {
       const ndp  = parseFloat(document.getElementById('ndp_total').value);
       const proj = parseFloat(document.getElementById('ndp_proj').value);
       const res  = document.getElementById('resultado115');
-
-      if (isNaN(ndp) || isNaN(proj) || ndp <= 0) { res.style.display = 'none'; return; }
-
+      if (isNaN(ndp) || isNaN(proj) || ndp <= 0) { res.style.display='none'; return; }
       const prop = (proj / ndp) * 100;
-
-      document.getElementById('v-ndp').textContent  = ndp;
-      document.getElementById('v-proj').textContent = proj;
-      document.getElementById('v-prop').textContent = prop.toFixed(1) + '%';
-
-      const badge = document.getElementById('badge115');
-      const barra = document.getElementById('barra115');
-      const limiar = document.getElementById('limiar115');
-
-      let nota, bg, tc, barColor;
-      if (prop >= 80)      { nota = 'MB'; bg = '#EAF3DE'; tc = '#27500A'; barColor = '#639922'; }
-      else if (prop >= 60) { nota = 'B';  bg = '#FAEEDA'; tc = '#633806'; barColor = '#EF9F27'; }
-      else if (prop >= 40) { nota = 'R';  bg = '#FAECE7'; tc = '#4A1B0C'; barColor = '#D85A30'; }
-      else if (prop >= 20) { nota = 'F';  bg = '#FCEBEB'; tc = '#501313'; barColor = '#E24B4A'; }
-      else                 { nota = 'I';  bg = '#FCEBEB'; tc = '#501313'; barColor = '#A32D2D'; }
-
-      badge.textContent       = nota;
-      badge.style.background  = bg;
-      badge.style.color       = tc;
-      barra.style.width       = Math.min(prop, 100).toFixed(1) + '%';
-      barra.style.background  = barColor;
-
+      document.getElementById('v115-ndp').textContent  = ndp;
+      document.getElementById('v115-proj').textContent = proj;
+      document.getElementById('v115-prop').textContent = prop.toFixed(1) + '%';
+      renderConceito('badge115','barra115', prop);
       const faltam = Math.ceil(0.8 * ndp) - proj;
-      if (faltam > 0) {
-        limiar.textContent = `Faltam ${faltam} docente(s) do PPGADM/UFG com projeto financiado para atingir 80% do NDP.`;
-      } else {
-        limiar.textContent = `${prop.toFixed(1)}% do NDP do PPGADM/UFG possui projeto de pesquisa financiado externamente.`;
-      }
+      document.getElementById('limiar115').textContent = faltam > 0
+        ? `Faltam ${faltam} docente(s) do PPGADM/UFG com projeto financiado para atingir 80% do NDP.`
+        : `${prop.toFixed(1)}% do NDP do PPGADM/UFG possui projeto de pesquisa financiado externamente.`;
+      res.style.display = 'block';
+    }
 
+    /* ── 2.1.1 ── */
+    function calcular211() {
+      const total = parseFloat(document.getElementById('td_total').value);
+      const ader  = parseFloat(document.getElementById('td_ader').value);
+      const res   = document.getElementById('resultado211');
+      if (isNaN(total) || isNaN(ader) || total <= 0) { res.style.display='none'; return; }
+      const prop = (ader / total) * 100;
+      document.getElementById('v211-total').textContent = total;
+      document.getElementById('v211-ader').textContent  = ader;
+      document.getElementById('v211-prop').textContent  = prop.toFixed(1) + '%';
+      renderConceito('badge211','barra211', prop);
+      const faltam = Math.ceil(0.8 * total) - ader;
+      document.getElementById('limiar211').textContent = faltam > 0
+        ? `Faltam ${faltam} tese(s)/dissertação(ões) do PPGADM/UFG para atingir 80% de aderência.`
+        : `${prop.toFixed(1)}% das teses/dissertações do PPGADM/UFG são consideradas aderentes pelo coordenador.`;
+      res.style.display = 'block';
+    }
+
+    /* ── 2.1.3 ── */
+    function calcular213() {
+      const total = parseFloat(document.getElementById('t213_total').value);
+      const anais = parseFloat(document.getElementById('t213_anais').value) || 0;
+      const perio = parseFloat(document.getElementById('t213_perio').value) || 0;
+      const res   = document.getElementById('resultado213');
+      if (isNaN(total) || total <= 0) { res.style.display='none'; return; }
+
+      // combinado: teses com ao menos uma produção (anais OU periódico)
+      // usamos o máximo entre os dois somados e o total, pois uma tese pode ter os dois tipos
+      const combinado = Math.min(anais + perio, total);
+      const prop = (combinado / total) * 100;
+
+      document.getElementById('v213-total').textContent = total;
+      document.getElementById('v213-anais').textContent = anais;
+      document.getElementById('v213-perio').textContent = perio;
+      document.getElementById('v213-comb').textContent  = combinado + ' (' + prop.toFixed(1) + '%)';
+
+      renderConceito('badge213','barra213', prop);
+      const faltam = Math.ceil(0.8 * total) - combinado;
+      document.getElementById('limiar213').textContent = faltam > 0
+        ? `Faltam ${faltam} tese(s)/dissertação(ões) do PPGADM/UFG com produção em anais ou periódico para atingir 80%.`
+        : `${prop.toFixed(1)}% das teses/dissertações do PPGADM/UFG geraram produção em anais ou periódico.`;
       res.style.display = 'block';
     }
   </script>
