@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Indicadores — PPGADM/UFG</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f3;
+      color: #1a1a18;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .titulo-painel {
+      font-size: 22px;
+      font-weight: 500;
+      color: #1a1a18;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitulo-painel {
+      font-size: 13px;
+      color: #5f5e5a;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 0.5px solid rgba(0,0,0,0.15);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-header-titulo {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1a1a18;
+    }
+
+    .card-badge {
+      font-size: 11px;
+      font-weight: 500;
+      color: #888780;
+      background: #f1efe8;
+      border-radius: 8px;
+      padding: 3px 8px;
+      white-space: nowrap;
+    }
+
+    .card-titulo {
+      font-size: 13px;
+      color: #5f5e5a;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .obs-box {
+      background: #f1efe8;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 1rem;
+      font-size: 12px;
+      color: #5f5e5a;
+      line-height: 1.5;
+    }
+
+    .campos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 500px) {
+      .campos { grid-template-columns: 1fr; }
+      .card-header { flex-direction: column; }
+    }
+
+    .campo label {
+      display: block;
+      font-size: 13px;
+      color: #5f5e5a;
+      margin-bottom: 6px;
+    }
+
+    .campo input {
+      width: 100%;
+      height: 36px;
+      padding: 0 10px;
+      border: 0.5px solid rgba(0,0,0,0.3);
+      border-radius: 8px;
+      font-size: 14px;
+      color: #1a1a18;
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .campo input:focus {
+      border-color: rgba(0,0,0,0.5);
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+    }
+
+    .resultado {
+      margin-top: 1.25rem;
+      border-top: 0.5px solid rgba(0,0,0,0.12);
+      padding-top: 1.25rem;
+    }
+
+    .metricas {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+
+    .metrica {
+      background: #f1efe8;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+    }
+
+    .metrica-label {
+      font-size: 12px;
+      color: #5f5e5a;
+      margin-bottom: 4px;
+    }
+
+    .metrica-valor {
+      font-size: 20px;
+      font-weight: 500;
+      color: #1a1a18;
+    }
+
+    .conceito-titulo {
+      font-size: 12px;
+      font-weight: 500;
+      color: #5f5e5a;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.5rem;
+    }
+
+    .resultado-linha {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .resultado-label {
+      font-size: 13px;
+      color: #5f5e5a;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .barra-fundo {
+      height: 10px;
+      background: #f1efe8;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .barra-preenchimento {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.4s ease, background 0.4s ease;
+      width: 0%;
+    }
+
+    .limiar-info {
+      font-size: 12px;
+      color: #444441;
+      margin-top: 8px;
+    }
+
+    .aposteriori-aviso {
+      font-size: 11px;
+      color: #888780;
+      margin-top: 6px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <p class="titulo-painel">Painel de indicadores — PPGADM/UFG</p>
+    <p class="subtitulo-painel">Área 27 · Administração Pública e de Empresas, Ciências Contábeis e Turismo · CAPES 2025</p>
+
+    <!-- INDICADOR 1.1.5 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header-titulo">Quesito 1 — Programa · Item 1.1 · Indicador 1.1.5</span>
+        <span class="card-badge">Item 1.2 · peso 50% do Quesito 1</span>
+      </div>
+
+      <p class="card-titulo">
+        1.1.5. Proporção do NDP com projetos de pesquisa, inovação ou desenvolvimento tecnológico alinhados à proposta do programa, financiados por fontes públicas ou privadas de fomento ao ensino e pesquisa, externas à IES, incluindo bolsas de produtividade, em pesquisa ou de desenvolvimento tecnológico, concedidas por agência de fomento internacional, nacional ou estadual.
+      </p>
+
+      <div class="obs-box">
+        OBS: Estratificação definida a posteriori pela CAPES (com base nos dados de todos os programas da área). O conceito exibido abaixo é uma referência proporcional provisória para o PPGADM/UFG.
+      </div>
+
+      <div class="campos">
+        <div class="campo">
+          <label>Total de docentes do NDP</label>
+          <input type="number" id="ndp_total" min="0" placeholder="ex: 20" oninput="calcular115()">
+        </div>
+        <div class="campo">
+          <label>Docentes do NDP com projeto financiado externamente</label>
+          <input type="number" id="ndp_proj" min="0" placeholder="ex: 14" oninput="calcular115()">
+        </div>
+      </div>
+
+      <div class="resultado" id="resultado115" style="display:none;">
+        <div class="metricas">
+          <div class="metrica">
+            <div class="metrica-label">Total NDP</div>
+            <div class="metrica-valor" id="v-ndp">—</div>
+          </div>
+          <div class="metrica">
+            <div class="metrica-label">Com projeto financiado</div>
+            <div class="metrica-valor" id="v-proj">—</div>
+          </div>
+          <div class="metrica">
+            <div class="metrica-label">Proporção</div>
+            <div class="metrica-valor" id="v-prop">—</div>
+          </div>
+        </div>
+
+        <p class="conceito-titulo">Conceito CAPES para o PPGADM/UFG (referência provisória)</p>
+
+        <div class="resultado-linha">
+          <span class="resultado-label">Conceito calculado</span>
+          <span class="badge" id="badge115">—</span>
+        </div>
+
+        <div class="barra-fundo">
+          <div class="barra-preenchimento" id="barra115"></div>
+        </div>
+        <div class="limiar-info" id="limiar115"></div>
+        <p class="aposteriori-aviso">O conceito final será definido pela CAPES após comparação com todos os programas da área (estratificação a posteriori).</p>
+      </div>
+    </div>
+
+    <!-- ESPAÇO RESERVADO PARA PRÓXIMOS INDICADORES -->
+
+  </div>
+
+  <script>
+    function calcular115() {
+      const ndp  = parseFloat(document.getElementById('ndp_total').value);
+      const proj = parseFloat(document.getElementById('ndp_proj').value);
+      const res  = document.getElementById('resultado115');
+
+      if (isNaN(ndp) || isNaN(proj) || ndp <= 0) { res.style.display = 'none'; return; }
+
+      const prop = (proj / ndp) * 100;
+
+      document.getElementById('v-ndp').textContent  = ndp;
+      document.getElementById('v-proj').textContent = proj;
+      document.getElementById('v-prop').textContent = prop.toFixed(1) + '%';
+
+      const badge = document.getElementById('badge115');
+      const barra = document.getElementById('barra115');
+      const limiar = document.getElementById('limiar115');
+
+      let nota, bg, tc, barColor;
+      if (prop >= 80)      { nota = 'MB'; bg = '#EAF3DE'; tc = '#27500A'; barColor = '#639922'; }
+      else if (prop >= 60) { nota = 'B';  bg = '#FAEEDA'; tc = '#633806'; barColor = '#EF9F27'; }
+      else if (prop >= 40) { nota = 'R';  bg = '#FAECE7'; tc = '#4A1B0C'; barColor = '#D85A30'; }
+      else if (prop >= 20) { nota = 'F';  bg = '#FCEBEB'; tc = '#501313'; barColor = '#E24B4A'; }
+      else                 { nota = 'I';  bg = '#FCEBEB'; tc = '#501313'; barColor = '#A32D2D'; }
+
+      badge.textContent       = nota;
+      badge.style.background  = bg;
+      badge.style.color       = tc;
+      barra.style.width       = Math.min(prop, 100).toFixed(1) + '%';
+      barra.style.background  = barColor;
+
+      const faltam = Math.ceil(0.8 * ndp) - proj;
+      if (faltam > 0) {
+        limiar.textContent = `Faltam ${faltam} docente(s) do PPGADM/UFG com projeto financiado para atingir 80% do NDP.`;
+      } else {
+        limiar.textContent = `${prop.toFixed(1)}% do NDP do PPGADM/UFG possui projeto de pesquisa financiado externamente.`;
+      }
+
+      res.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
